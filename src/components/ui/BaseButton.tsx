@@ -36,10 +36,10 @@ interface BaseButtonProps {
 }
 
 const variants: Record<Variant, string> = {
-  primary: "bg-linear-to-r from-orange-400 to-red-500 text-white",
-  outline: "border border-orange-400 text-orange-500 hover:bg-orange-50",
-  ghost: "text-gray-700 hover:bg-gray-100",
-  danger: "bg-red-500 text-white hover:bg-red-600",
+  primary: "bg-primary text-white hover:bg-primary-hover",
+  outline: "border border-primary text-primary hover:bg-surface",
+  ghost: "text-foreground hover:bg-surface",
+  danger: "bg-red-500 text-white hover:bg-red-600", // fine to keep — no destructive-action token defined, and red for danger is a near-universal convention
   custom: "",
 };
 
