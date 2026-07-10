@@ -1,13 +1,10 @@
 import Container from "@/components/shared/Container";
-import BaseButton from "@/components/ui/BaseButton";
-import { GrLogin } from "react-icons/gr";
 
 export default function Home() {
   return (
     <main>
       <Container>
-        <h1>Welcome</h1>
-        <BaseButton animated animatedSpanOne="animate-spin" text={'Login'} rightIcon={<GrLogin />} />
+        <h1 className="font-bold text-2xl text-foreground">Venuo</h1>
       </Container>
     </main>
   );
