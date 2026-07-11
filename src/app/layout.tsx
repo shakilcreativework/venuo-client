@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import Navbar from "../components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 // import { HeroUIProvider } from "@heroui/react";
 
 const geistSans = Geist({
@@ -32,7 +34,9 @@ export default function RootLayout({
     >
       <body cz-shortcut-listen="true" className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Navbar />
           {children}
+          <Footer />
           {/* <HeroUIProvider>{children}</HeroUIProvider> */}
         </ThemeProvider>
       </body>
