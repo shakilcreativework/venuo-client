@@ -35,7 +35,7 @@ export default function RootLayout({
       <body cz-shortcut-listen="true" className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Navbar />
-          {children}
+          <main className="flex-1 overflow-hidden">{children}</main>
           <Footer />
           {/* <HeroUIProvider>{children}</HeroUIProvider> */}
         </ThemeProvider>

@@ -17,6 +17,7 @@
     "better-auth": "^1.6.23",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.42.2",
     "mongodb": "^7.5.0",
     "next": "16.2.10",

@@ -76,9 +76,19 @@ export default function Navbar() {
                 <button
                   onClick={() => setProfileOpen((v) => !v)}
                   aria-label="Open profile menu"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white"
+                  className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-white"
                 >
-                  {session.user.name?.[0]?.toUpperCase() ?? "U"}
+                  {session.user.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name ?? "Profile"}
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    session.user.name?.[0]?.toUpperCase() ?? "U"
+                  )}
                 </button>
 
                 <AnimatePresence>

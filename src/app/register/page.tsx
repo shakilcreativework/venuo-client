@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import Container from "@/components/shared/Container";
 import FormField from "@/components/ui/FormField";
 import BaseButton from "@/components/ui/BaseButton";
@@ -52,6 +52,10 @@ export default function RegisterPage() {
     }
 
     router.push("/");
+  };
+
+  const handleGoogleSignup = async () => {
+    await signIn.social({ provider: "google", callbackURL: "/" });
   };
 
   return (
@@ -142,6 +146,19 @@ export default function RegisterPage() {
 
             <BaseButton type="submit" text="Create account" loading={loading} className="mt-2 w-full justify-center" />
           </form>
+
+          <div className="my-6 flex items-center gap-3 text-xs text-muted">
+            <span className="h-px flex-1 bg-border" />
+            or
+            <span className="h-px flex-1 bg-border" />
+          </div>
+
+          <BaseButton
+            text="Continue with Google"
+            variant="ghost"
+            className="w-full justify-center border border-border"
+            onClick={handleGoogleSignup}
+          />
 
           <p className="mt-6 text-center text-sm text-muted">
             Already have an account?{" "}
