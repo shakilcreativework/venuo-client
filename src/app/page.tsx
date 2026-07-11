@@ -1,11 +1,9 @@
-import Container from "@/components/shared/Container";
+import Hero from "@/components/home/Hero";
 
 export default function Home() {
   return (
     <main>
-      <Container>
-        <h1 className="font-bold text-2xl text-foreground">Venuo</h1>
-      </Container>
+      <Hero />
     </main>
   );
 }
