@@ -77,7 +77,7 @@ export default function CreateEventPage() {
   };
 
   return (
-    <main className="py-12">
+    <main className="pt-12 pb-40">
       <Container className="max-w-2xl">
         <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Create Event</h1>
         <p className="mt-1 text-sm text-muted">Fill in the details below to list your event.</p>
