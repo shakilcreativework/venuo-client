@@ -17,7 +17,6 @@
     "better-auth": "^1.6.23",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
-    "dotenv": "^17.4.2",
     "framer-motion": "^12.42.2",
     "mongodb": "^7.5.0",
     "next": "16.2.10",
@@ -36,9 +35,11 @@
     "@types/node": "^20.19.43",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.0",
     "typescript": "^5.9.3"
   }
 }
