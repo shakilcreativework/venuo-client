@@ -3,7 +3,7 @@ import { getSessionCookie } from "better-auth/cookies";
 
 const PROTECTED_PATHS = ["/items/add", "/items/manage", "/checkout"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isProtected = PROTECTED_PATHS.some((path) => pathname.startsWith(path));
