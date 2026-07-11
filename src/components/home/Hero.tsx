@@ -4,8 +4,8 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiSearch, FiMapPin, FiCalendar } from "react-icons/fi";
+import BaseButton from "@/components/ui/BaseButton";
 import Container from "../shared/Container";
-import BaseButton from "../ui/BaseButton";
 
 const trendingTags = ["Technology", "Music", "Business", "Art & Culture", "Food & Drink", "Wellness"];
 
@@ -62,6 +62,8 @@ export default function Hero() {
           <div className="flex flex-1 items-center gap-2 px-2">
             <FiSearch className="shrink-0 text-muted" />
             <input
+              id="hero-search"
+              name="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search events, artists, venues..."
@@ -74,6 +76,8 @@ export default function Hero() {
           <div className="flex items-center gap-2 px-2">
             <FiMapPin className="shrink-0 text-muted" />
             <input
+              id="hero-location"
+              name="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
@@ -86,6 +90,8 @@ export default function Hero() {
           <div className="flex items-center gap-2 px-2">
             <FiCalendar className="shrink-0 text-muted" />
             <input
+              id="hero-date"
+              name="date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -93,7 +99,7 @@ export default function Hero() {
             />
           </div>
 
-          <BaseButton type="submit" text="Search" className="w-full sm:w-auto py-1.5" />
+          <BaseButton type="submit" text="Search" className="w-full sm:w-auto" />
         </motion.form>
 
         <motion.div

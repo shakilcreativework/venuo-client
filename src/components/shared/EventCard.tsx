@@ -16,7 +16,8 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function EventCard({ event }: EventCardProps) {
-  const categoryClass = categoryColors[event.category] ?? "bg-surface text-muted";
+  const categoryClass =
+    categoryColors[event.category] ?? "bg-surface text-muted";
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -28,7 +29,14 @@ export default function EventCard({ event }: EventCardProps) {
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card">
       <div className="relative h-44 w-full bg-surface">
         {event.images?.[0] ? (
-          <Image src={event.images[0]} alt={event.title} fill className="object-cover" />
+          <Image
+            src={event.images[0]}
+            alt={event.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-xs text-muted">
             No image
@@ -42,8 +50,12 @@ export default function EventCard({ event }: EventCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="line-clamp-1 text-base font-semibold text-foreground">{event.title}</h3>
-        <p className="line-clamp-2 text-sm text-muted">{event.shortDescription}</p>
+        <h3 className="line-clamp-1 text-base font-semibold text-foreground">
+          {event.title}
+        </h3>
+        <p className="line-clamp-2 text-sm text-muted">
+          {event.shortDescription}
+        </p>
 
         <div className="mt-auto flex items-center justify-between pt-2 text-xs text-muted">
           <span className="line-clamp-1">{event.location}</span>
@@ -51,7 +63,9 @@ export default function EventCard({ event }: EventCardProps) {
         </div>
 
         <div className="flex items-center justify-between pt-1">
-          <span className="text-sm font-semibold text-primary">{priceLabel}</span>
+          <span className="text-sm font-semibold text-primary">
+            {priceLabel}
+          </span>
           <Link
             href={`/events/${event._id}`}
             className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
