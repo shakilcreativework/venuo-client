@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import Container from "@/components/shared/Container";
 import EventCard from "@/components/shared/EventCard";
 import EventCardSkeleton from "@/components/shared/EventCardSkeleton";
-import { mockEvents } from "@/data/mock-events";
 import { EventSummary } from "@/types/event";
 
 const categories = ["All", "Technology", "Music", "Business", "Art & Culture", "Food & Drink", "Wellness"];
@@ -14,7 +13,7 @@ const sortOptions = [
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
 ];
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 6;
 
 export default function ExplorePage() {
   const searchParams = useSearchParams();
@@ -28,14 +27,20 @@ export default function ExplorePage() {
   const [sort, setSort] = useState("date");
   const [page, setPage] = useState(1);
 
-  // TEMPORARY: local mock data with a simulated load delay.
-  // Swap for: fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/events`).then(...)
+  // Fetches real events from your MongoDB-backed API route.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAllEvents(mockEvents);
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch("/api/events");
+        const data: EventSummary[] = await res.json();
+        setAllEvents(data);
+      } catch {
+        setAllEvents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
   }, []);
 
   // Page resets to 1 directly inside each filter's onChange handler below —
@@ -84,7 +89,7 @@ export default function ExplorePage() {
   };
 
   return (
-    <main className="pt-12 mb-40">
+    <main className="py-12">
       <Container>
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Explore Events</h1>

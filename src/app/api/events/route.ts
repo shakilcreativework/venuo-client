@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
 
   const newEvent = {
     organizerId: session.user.id,
+    organizerName: session.user.name,
     title,
     shortDescription,
     fullDescription,

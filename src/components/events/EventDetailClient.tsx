@@ -1,31 +1,61 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Container from "@/components/shared/Container";
 import EventCard from "@/components/shared/EventCard";
 import BaseButton from "@/components/ui/BaseButton";
-import { mockEventDetails } from "@/data/mock-event-details";
-import { mockEvents } from "@/data/mock-events";
+import { EventDetail, EventSummary } from "@/types/event";
 
 interface EventDetailClientProps {
   id: string;
 }
 
 export default function EventDetailClient({ id }: EventDetailClientProps) {
-  const event = mockEventDetails.find((e) => e._id === id);
+  const [event, setEvent] = useState<EventDetail | null>(null);
+  const [relatedEvents, setRelatedEvents] = useState<EventSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  const relatedEvents = useMemo(() => {
-    if (!event) return [];
-    return mockEvents
-      .filter((e) => e._id !== event._id && e.category === event.category)
-      .slice(0, 4);
-  }, [event]);
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const res = await fetch(`/api/events/${id}`);
+        if (!res.ok) {
+          setNotFound(true);
+          return;
+        }
+        const data: EventDetail = await res.json();
+        setEvent(data);
 
-  if (!event) {
+        // Related events: same category, excluding this one
+        const allRes = await fetch("/api/events");
+        const all: EventSummary[] = await allRes.json();
+        setRelatedEvents(
+          all.filter((e) => e._id !== data._id && e.category === data.category).slice(0, 4),
+        );
+      } catch {
+        setNotFound(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Container className="py-20 text-center">
+        <p className="text-sm text-muted">Loading event...</p>
+      </Container>
+    );
+  }
+
+  if (notFound || !event) {
     return (
       <Container className="py-20 text-center">
         <h1 className="text-xl font-semibold text-foreground">Event not found</h1>
@@ -49,7 +79,7 @@ export default function EventDetailClient({ id }: EventDetailClientProps) {
     : null;
 
   return (
-    <main className="pt-10 pb-40">
+    <main className="py-10">
       <Container>
         <Link href="/events" className="text-sm text-muted hover:text-foreground">
           ← Back to Explore
@@ -58,24 +88,32 @@ export default function EventDetailClient({ id }: EventDetailClientProps) {
         <div className="mt-4 grid grid-cols-1 gap-10 lg:grid-cols-3">
           {/* Left column: gallery + content */}
           <div className="lg:col-span-2">
-            <Swiper spaceBetween={12} slidesPerView={1} className="overflow-hidden rounded-xl">
-              {event.images.map((src, i) => (
-                <SwiperSlide key={i}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt={`${event.title} photo ${i + 1}`}
-                    className="h-80 w-full object-cover"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            {event.images && event.images.length > 0 ? (
+              <Swiper spaceBetween={12} slidesPerView={1} className="overflow-hidden rounded-xl">
+                {event.images.map((src, i) => (
+                  <SwiperSlide key={i}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt={`${event.title} photo ${i + 1}`}
+                      className="h-80 w-full object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className="flex h-80 w-full items-center justify-center rounded-xl border border-border bg-surface text-sm text-muted">
+                No image provided
+              </div>
+            )}
 
             <span className="mt-6 inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
               {event.category}
             </span>
             <h1 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">{event.title}</h1>
-            <p className="mt-1 text-sm text-muted">Hosted by {event.organizerName}</p>
+            {event.organizerName && (
+              <p className="mt-1 text-sm text-muted">Hosted by {event.organizerName}</p>
+            )}
 
             <section className="mt-8">
               <h2 className="text-lg font-semibold text-foreground">Overview</h2>
@@ -162,7 +200,7 @@ export default function EventDetailClient({ id }: EventDetailClientProps) {
                   <span className="w-4 text-center text-sm text-foreground">{quantity}</span>
                   <button
                     type="button"
-                    onClick={() => setQuantity((q) => Math.min(event.capacity, q + 1))}
+                    onClick={() => setQuantity((q) => Math.min(event.capacity || 99, q + 1))}
                     className="flex h-7 w-7 items-center justify-center rounded-md border border-border text-foreground hover:border-primary"
                   >
                     +

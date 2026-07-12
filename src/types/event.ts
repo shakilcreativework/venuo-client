@@ -1,4 +1,3 @@
-
 export interface EventSummary {
   _id: string;
   title: string;
@@ -21,6 +20,6 @@ export interface Review {
 export interface EventDetail extends EventSummary {
   fullDescription: string;
   capacity: number;
-  organizerName: string;
+  organizerName?: string;
   reviews?: Review[];
 }
