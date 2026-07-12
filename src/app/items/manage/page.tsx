@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 import Container from "@/components/shared/Container";
 import BaseButton from "@/components/ui/BaseButton";
+import OrganizerStatsChart from "@/components/events/OrganizerStatsChart";
 
 interface OrganizerEvent {
   _id: string;
@@ -14,9 +15,17 @@ interface OrganizerEvent {
   images: string[];
 }
 
+interface StatRow {
+  eventId: string;
+  title: string;
+  ticketsSold: number;
+  revenue: number;
+}
+
 export default function ManageEventsPage() {
   const { data: session, isPending: sessionLoading } = useSession();
   const [events, setEvents] = useState<OrganizerEvent[]>([]);
+  const [stats, setStats] = useState<StatRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
@@ -24,17 +33,25 @@ export default function ManageEventsPage() {
   useEffect(() => {
     if (!session?.user) return;
 
-    const fetchEvents = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`/api/events?organizerId=${session.user.id}`);
-        const data = await res.json();
-        setEvents(data);
+        const [eventsRes, statsRes] = await Promise.all([
+          fetch(`/api/events?organizerId=${session.user.id}`),
+          fetch("/api/organizer/stats", { credentials: "include" }),
+        ]);
+        const eventsData = await eventsRes.json();
+        setEvents(eventsData);
+
+        if (statsRes.ok) {
+          const statsData = await statsRes.json();
+          setStats(statsData);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchEvents();
+    fetchData();
   }, [session?.user]);
 
   const handleDelete = async (id: string) => {
@@ -64,7 +81,7 @@ export default function ManageEventsPage() {
   }
 
   return (
-    <main className="pt-12 pb-40">
+    <main className="py-12">
       <Container>
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -73,6 +90,8 @@ export default function ManageEventsPage() {
           </div>
           <BaseButton as="link" href="/items/add" text="Create Event" />
         </div>
+
+        {stats.length > 0 && <OrganizerStatsChart data={stats} />}
 
         {events.length === 0 ? (
           <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card py-16 text-center">
