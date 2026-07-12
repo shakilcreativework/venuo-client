@@ -89,7 +89,7 @@ export default function ExplorePage() {
   };
 
   return (
-    <main className="py-12">
+    <main className="pt-20 pb-40">
       <Container>
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Explore Events</h1>
