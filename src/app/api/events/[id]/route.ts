@@ -46,7 +46,10 @@ export async function DELETE(
     return NextResponse.json({ success: false, error: "Event not found." }, { status: 404 });
   }
 
-  if (event.organizerId !== session.user.id) {
+  const isOwner = event.organizerId === session.user.id;
+  const isAdmin = (session.user as { role?: string }).role === "admin";
+
+  if (!isOwner && !isAdmin) {
     return NextResponse.json(
       { success: false, error: "You can only delete your own events." },
       { status: 403 },

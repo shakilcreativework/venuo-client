@@ -29,7 +29,12 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const isLoggedIn = !!session?.user;
-  const links = isLoggedIn ? loggedInLinks : loggedOutLinks;
+  const isAdmin = (session?.user as { role?: string } | undefined)?.role === "admin";
+  const links = isLoggedIn
+    ? isAdmin
+      ? [...loggedInLinks, { href: "/admin", label: "Admin" }]
+      : loggedInLinks
+    : loggedOutLinks;
 
   const handleLogout = async () => {
     await signOut();
@@ -76,7 +81,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setProfileOpen((v) => !v)}
                   aria-label="Open profile menu"
-                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-white"
+                  className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-white"
                 >
                   {session.user.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
