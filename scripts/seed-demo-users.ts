@@ -1,7 +1,5 @@
 import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { auth } from "../src/lib/auth";
+config({ path: ".env" });
 
 const demoUsers = [
   { name: "Demo Attendee", email: "demo@venuo.app", password: "Demo1234!", role: "attendee" },
@@ -9,6 +7,11 @@ const demoUsers = [
 ];
 
 async function seed() {
+  // Dynamic import ensures this only loads (and constructs MongoClient)
+  // AFTER dotenv's config() above has already populated process.env —
+  // static imports get hoisted and would run too early otherwise.
+  const { auth } = await import("../src/lib/auth");
+
   for (const user of demoUsers) {
     try {
       await auth.api.signUpEmail({ body: user });
@@ -18,6 +21,7 @@ async function seed() {
       console.error(err);
     }
   }
+
   process.exit(0);
 }
 
