@@ -162,6 +162,7 @@ src/
     (public pages)         → /, /events, /events/[id], /about, /contact
     login/, register/
     items/add/, items/manage/     → protected, organizer-only
+    admin/                         → protected, admin-only dashboard
     checkout/[eventId]/           → protected
     dashboard/bookings/           → protected
     api/
@@ -198,6 +199,9 @@ scripts/
 | POST | `/api/checkout` | Protected | Create a Paddle transaction |
 | POST | `/api/webhooks/paddle` | Signature-verified | Confirm payment, mark booking paid |
 | GET | `/api/organizer/stats` | Protected | Ticket sales per event |
+| GET | `/api/admin/events` | Admin only | All events across all organizers |
+| GET | `/api/admin/users` | Admin only | All registered users |
+| GET | `/api/admin/stats` | Admin only | Platform-wide totals (events, users, bookings, revenue) |
 | POST | `/api/contact` | Public | Store contact form submissions |
 | ALL | `/api/auth/[...all]` | — | better-auth handler |
 
@@ -209,8 +213,9 @@ scripts/
 |---|---|---|
 | Attendee | `demo@venuo.app` | `Demo1234!` |
 | Organizer | `organizer@venuo.app` | `Organizer1234!` |
+| Admin | `admin@venuo.app` | `Admin1234!` |
 
-Or use the **"Try the demo account"** button on the login page.
+Or use the **"Try the demo account"** button on the login page (attendee only — log in manually for organizer/admin).
 
 ---
 
