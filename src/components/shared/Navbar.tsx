@@ -8,6 +8,7 @@ import Container from "./Container";
 import { ThemeSwitch } from "./ThemeSwitch";
 import BaseButton from "@/components/ui/BaseButton";
 import { useSession, signOut } from "@/lib/auth-client";
+import Image from "next/image";
 
 const loggedOutLinks = [
   { href: "/events", label: "Explore" },
@@ -81,13 +82,14 @@ export default function Navbar() {
                 <button
                   onClick={() => setProfileOpen((v) => !v)}
                   aria-label="Open profile menu"
-                  className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-white"
+                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-semibold text-white"
                 >
                   {session.user.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name ?? "Profile"}
+                    <Image
+                    width={40}
+                    height={40}
+                      src={session?.user.image}
+                      alt={session?.user.name ?? "Profile"}
                       referrerPolicy="no-referrer"
                       className="h-full w-full object-cover"
                     />
