@@ -13,7 +13,7 @@ const sortOptions = [
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
 ];
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 8;
 
 export default function ExploreContent() {
   const searchParams = useSearchParams();

@@ -45,4 +45,70 @@ export const mockEvents: EventSummary[] = [
     location: "Dhaka, Bangladesh",
     images: ["https://picsum.photos/seed/venuo-coffee/800/600"],
   },
+  {
+    _id: "mock-5",
+    title: "Bengal Heritage Art Walk",
+    shortDescription:
+      "A guided tour through galleries and street murals celebrating contemporary Bengali artists.",
+    category: "Art & Culture",
+    price: 5,
+    date: "2026-09-14",
+    location: "Dhaka, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-artwalk/800/600"],
+  },
+  {
+    _id: "mock-6",
+    title: "Traditional Folk Theatre Night",
+    shortDescription:
+      "A live staging of classic Bangla folk tales with music, dance, and storytelling.",
+    category: "Art & Culture",
+    price: 10,
+    date: "2026-10-25",
+    location: "Chattogram, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-theatre/800/600"],
+  },
+  {
+    _id: "mock-7",
+    title: "Street Food Festival: Flavors of Dhaka",
+    shortDescription:
+      "Sample dishes from over 30 local vendors, from fuchka to kebabs to fresh sweets.",
+    category: "Food and Drink",
+    price: 3,
+    date: "2026-11-08",
+    location: "Dhaka, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-streetfood/800/600"],
+  },
+  {
+    _id: "mock-8",
+    title: "Craft Coffee & Cupping Workshop",
+    shortDescription:
+      "Learn brewing techniques and taste single-origin beans with local roasters.",
+    category: "Food and Drink",
+    price: 12,
+    date: "2026-09-27",
+    location: "Sylhet, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-coffeeworkshop/800/600"],
+  },
+  {
+    _id: "mock-9",
+    title: "Sunrise Yoga by the River",
+    shortDescription:
+      "A calming outdoor session focused on breathwork and gentle movement for all levels.",
+    category: "Wellness",
+    price: 6,
+    date: "2026-08-16",
+    location: "Sylhet, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-yoga/800/600"],
+  },
+  {
+    _id: "mock-10",
+    title: "Mindfulness & Meditation Retreat",
+    shortDescription:
+      "A half-day retreat with guided meditation, journaling, and quiet reflection time.",
+    category: "Wellness",
+    price: 18,
+    date: "2026-10-04",
+    location: "Chattogram, Bangladesh",
+    images: ["https://picsum.photos/seed/venuo-meditation/800/600"],
+  },
 ];
