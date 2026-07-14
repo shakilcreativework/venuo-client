@@ -16,11 +16,13 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-12 sm:py-16 md:py-20">
       <Container>
-        <div className="mx-auto flex max-w-2xl flex-col items-center rounded-xl border border-border bg-card p-10 text-center">
-          <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">Stay in the loop</h2>
-          <p className="mt-2 text-sm text-muted">
+        <div className="mx-auto flex max-w-2xl flex-col items-center rounded-xl border border-border bg-card p-6 text-center sm:p-8 md:p-10">
+          <h2 className="text-xl font-semibold text-foreground sm:text-2xl md:text-3xl">
+            Stay in the loop
+          </h2>
+          <p className="mt-2 max-w-md text-sm text-muted">
             Get updates on new events, exclusive offers, and event tips delivered to your inbox.
           </p>
 
@@ -29,7 +31,10 @@ export default function Newsletter() {
               You&apos;re subscribed — thanks for joining!
             </p>
           ) : (
-            <form onSubmit={handleSubmit} className="mt-6 flex w-full max-w-sm gap-2">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-6 flex w-full max-w-sm flex-col gap-3 sm:flex-row sm:gap-2"
+            >
               <label htmlFor="newsletter-email" className="sr-only">
                 Email address
               </label>
@@ -41,9 +46,9 @@ export default function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary"
+                className="w-full min-w-0 flex-1 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary"
               />
-              <BaseButton type="submit" text="Subscribe" />
+              <BaseButton type="submit" text="Subscribe" className="w-full shrink-0 sm:w-auto" />
             </form>
           )}
 
