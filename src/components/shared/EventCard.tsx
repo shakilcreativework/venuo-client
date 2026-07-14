@@ -36,6 +36,7 @@ export default function EventCard({ event }: EventCardProps) {
             className="object-cover"
             priority
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
+            loading="eager"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-xs text-muted">
