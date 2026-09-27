@@ -12,7 +12,7 @@ const Container = ({ children, className }: ContainerProps) => {
       className={cn(
         "max-w-350",
         "mx-auto",
-        "px-4 md:px-5 lg:px-6 xl:px-0",
+        "px-4 sm:px-5 lg:px-6 2xl:px-0",
         className
       )}
     >
