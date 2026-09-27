@@ -99,7 +99,7 @@ export default function Hero() {
             />
           </div>
 
-          <BaseButton type="submit" text="Search" className="w-full sm:w-auto" />
+          <BaseButton type="submit" text="Search" className="py-2 w-full sm:w-auto" />
         </motion.form>
 
         <motion.div
